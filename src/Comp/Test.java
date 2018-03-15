@@ -19,13 +19,13 @@ public class Test {
 
   
     public static void main(String[] args) {
-        int count = 0;
+        int[] intInput = new int[256];
         char[] chrInput = new char[256];
         char index = 0;
         char value;
         String input = null;
         String strInput = null;
-        int line= 1;
+        int numvalue = 0;
         
       //  System.out.println( ("   m   ").trim());
         
@@ -54,24 +54,24 @@ public class Test {
                 }*/
                 
                 boolean found = false;
-while (m.find())
-{
+            while (m.find())
+            {
  //   System.out.println("I found the text: " + m.group().toString());
-    index = m.group().charAt(0);
+                index = m.group().charAt(0);
     
-    found = true;
+                found = true;
     
  //      chrInput[index] = 'b';
  //  char test = scan.next().charAt(0);
  //   System.out.println(chrInput[test]);
     
 
-}
+            }
 
-if (!found)
-{
-    System.out.println("I didn't find the text");
-}
+            if (!found)
+            {
+                System.out.println("I didn't find the text");
+            }
 
             String bit = input.substring(input.indexOf("=")+1);    
             value = bit.trim().charAt(0);
@@ -81,35 +81,79 @@ if (!found)
               //  System.out.println(value);
                 
         //        found = false;
-while (m.find())
-{
-  //  System.out.println("I found the text: " + m.group().toString());
-   // char value = m.group().toString().charAt(0);
+            while (m.find())
+            {
+            //  System.out.println("I found the text: " + m.group().toString());
+             // char value = m.group().toString().charAt(0);
     
-   // found = true;
+             // found = true;
     
       
     
 
-}
- chrInput[index] = value;
- 
-/*
-if (!found)
-{
-    System.out.println("I didn't find the text");
-}
-*/
-
-
-
-
+            }
+        chrInput[index] = value;
  
 
             }
-                if(Pattern.matches("^\\.*int\\.*",input))            
+                if(Pattern.matches("^int.*",input))            
             {
                 System.out.println("has int");
+                
+                Pattern p;
+                p = Pattern.compile("(?<=int\\s).*");
+                Matcher m = p.matcher (input);
+                
+               //final Matcher m = Pattern.compile("?<([...]*\\=[...]).*").matcher(input);
+                
+             /*  if(m.find())
+                {
+                    String test = m.group().toString();
+                    System.out.println(test);
+                }*/
+                
+                boolean found = false;
+            while (m.find())
+            {
+ //   System.out.println("I found the text: " + m.group().toString());
+                index = m.group().charAt(0);
+    
+                found = true;
+    
+ //      chrInput[index] = 'b';
+ //  char test = scan.next().charAt(0);
+ //   System.out.println(chrInput[test]);
+    
+
+            }
+
+            if (!found)
+            {
+                System.out.println("I didn't find the text");
+            }
+
+            String bit = input.substring(input.indexOf("=")+1);    
+             numvalue = Integer.parseInt( bit.trim());
+            //    p = Pattern.compile("(?<=[=]).*");
+            //    p.matcher (input);
+                
+              //  System.out.println(value);
+                
+        //        found = false;
+            while (m.find())
+            {
+            //  System.out.println("I found the text: " + m.group().toString());
+             // char value = m.group().toString().charAt(0);
+    
+             // found = true;
+    
+      
+    
+
+            }
+        intInput[index] = numvalue;
+ 
+
             }
             if(Pattern.matches("^\\.*String\\.*",input))            
             {
@@ -123,6 +167,7 @@ if (!found)
         System.out.println("test");   
     //char test = scan.next().charAt(0);
     System.out.println("result " + chrInput[value]);
+        System.out.println("result int: " + intInput[value]);
         
         }
     
