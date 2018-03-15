@@ -6,7 +6,8 @@
 
 package Comp;
 
-import Comp.Symbol;
+
+
 import java.util.*;
 import java.util.regex.*;
 /**
@@ -56,7 +57,7 @@ public class Test {
 while (m.find())
 {
  //   System.out.println("I found the text: " + m.group().toString());
-    index = m.group().toString().charAt(0);
+    index = m.group().charAt(0);
     
     found = true;
     
@@ -79,13 +80,13 @@ if (!found)
                 
               //  System.out.println(value);
                 
-                found = false;
+        //        found = false;
 while (m.find())
 {
   //  System.out.println("I found the text: " + m.group().toString());
    // char value = m.group().toString().charAt(0);
     
-    found = true;
+   // found = true;
     
       
     
@@ -114,11 +115,14 @@ if (!found)
             {
                 System.out.println("has String");
             }
-        }while(Pattern.matches("end", input) == false);
+        }while(Pattern.matches("^(display?)(.*)", input) == false);
+        
+            String bit = input.substring(input.indexOf("y")+1);    
+            value = bit.trim().charAt(0);
         
         System.out.println("test");   
-    char test = scan.next().charAt(0);
-    System.out.println(chrInput[test]);
+    //char test = scan.next().charAt(0);
+    System.out.println("result " + chrInput[value]);
         
         }
     
