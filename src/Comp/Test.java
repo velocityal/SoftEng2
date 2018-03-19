@@ -178,7 +178,7 @@ public class Test {
                     }
                 }
             
-           else if(Pattern.matches("^.*\\*.*",input))
+           else if(Pattern.matches("^\\*.*",input))
 
             {
                 
@@ -210,9 +210,71 @@ public class Test {
                     System.out.println(comments[0]);
                 }
             }
+           else if(Pattern.matches("^[a-z]\\ .*",input))
+           {
+                String arth;
+                Pattern numbers;
+                Pattern check;
+                char tempNum = 0;
+                char ans = 0;
+                System.out.println("~~~~~~~~~~~~~");
+                numbers = Pattern.compile("^[\\w*]");
+                Matcher a = numbers.matcher(input);
+                while (a.find())
+                {
+                    ans =  a.group().trim().charAt(0);
+                }
+                check = Pattern.compile("[\\+\\-[\\*]\\/]");
+                Matcher c = check.matcher(input);
+                
+                
+
+                while (c.find())
+                {
+
+                   operator = c.group().charAt(0);
+                }
+                                String lastNum;
+                switch(operator)
+                {
+                    case'+':
+                          {
+                                lastNum = input.substring(input.indexOf("+")+1);
+                                tempNum = lastNum.trim().charAt(0);
+                              
+                              System.out.println(intInput[ans]+intInput[tempNum]);
+                              break;
+                          }
+                    case'-':
+                          {
+                                lastNum = input.substring(input.indexOf("-")+1);
+                                tempNum = lastNum.trim().charAt(0);
+                              
+                              System.out.println(intInput[ans]-intInput[tempNum]);
+                              break;
+                          }  
+                    case'*':
+                          {
+                              lastNum = input.substring(input.indexOf("*")+1);
+                              tempNum = lastNum.trim().charAt(0);
+                              
+                              System.out.println(intInput[ans]*intInput[tempNum]);
+                              break;
+                          }
+                    case'/':
+                          {
+                              lastNum = input.substring(input.indexOf("/")+1);
+                              tempNum = lastNum.trim().charAt(0);
+                              
+                              System.out.println(intInput[ans]/intInput[tempNum]);
+                              break;
+                          }
+                }
+           }
 
            else if(Pattern.matches("^\\d.*",input)) 
             {
+                
                 String arth;
                 Pattern numbers;
                 Pattern check;
@@ -234,7 +296,8 @@ public class Test {
                 {
 
                    operator = c.group().charAt(0);
-                }   
+                }
+                
                 //String bit = input.substring(input.indexOf("+")+1);
                 //tempNum = Integer.parseInt(bit.trim());
                 String lastNum;
@@ -281,9 +344,9 @@ public class Test {
            else if(Pattern.matches("^(display?).*",input))
             {
                 String arg = null;
-                String fDsp = null;
-                String sDsp = null;
-                String strDsp = null;
+                String fDsp = "";
+                String sDsp = "";
+                String strDsp = "";
                 int fNum = 0;
                 Pattern p;
                 p = Pattern.compile("(?<=display\\s)....*");
