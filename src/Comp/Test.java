@@ -106,7 +106,7 @@ public class Test {
  
 
             }
-                if(Pattern.matches("^int.*",input))            
+            else if(Pattern.matches("^int.*",input))            
             {
                // System.out.println("has int");
                 
@@ -165,7 +165,7 @@ public class Test {
  
 
             }
-            if(Pattern.matches("symbol table",input))            
+           else if(Pattern.matches("symbol table",input))            
                 {
                 //System.out.println("has String");
                 
@@ -178,7 +178,7 @@ public class Test {
                     }
                 }
             
-            if(Pattern.matches("^.*\\*.*",input))
+           else if(Pattern.matches("^.*\\*.*",input))
 
             {
                 
@@ -188,7 +188,7 @@ public class Test {
 
             }            
                 
-            if(Pattern.matches("comments",input))
+           else if(Pattern.matches("comments",input))
 
             {
                 int line = 1;
@@ -211,7 +211,7 @@ public class Test {
                 }
             }
 
-            if(Pattern.matches("^\\d.*",input)) 
+           else if(Pattern.matches("^\\d.*",input)) 
             {
                 String arth;
                 Pattern numbers;
@@ -278,14 +278,15 @@ public class Test {
             
             }
             
-            if(Pattern.matches("^(display?).*",input))
+           else if(Pattern.matches("^(display?).*",input))
             {
                 String arg = null;
                 String fDsp = null;
                 String sDsp = null;
+                String strDsp = null;
                 int fNum = 0;
                 Pattern p;
-                p = Pattern.compile("(?<=display\\s)....");
+                p = Pattern.compile("(?<=display\\s)....*");
                 Matcher m = p.matcher (input);
                 while (m.find())
                 {
@@ -316,20 +317,43 @@ public class Test {
                     String bit = input.substring(input.indexOf("t")+1);    
                     fNum = bit.trim().charAt(0);
                     sDsp = Integer.toString(intInput[fNum]);
-                    //arg = arg.substring(input.indexOf("+")+1);
-                   // arg = arg.trim();
+                    if(arg.substring(arg.indexOf("+")+1) != null)
+                    {
+                    arg = arg.substring(arg.indexOf("+")+1);
+                    arg = arg.trim();
+                    }
                 }
                 else if(Pattern.matches("^char.*",arg))
                 {
                     String bit = input.substring(input.indexOf("r")+1);    
                     fNum = bit.trim().charAt(0);
                     sDsp = Character.toString(chrInput[fNum]);
-                   // arg = input.substring(input.indexOf("+")+1);
-                   // arg = arg.trim();
+                    if(arg.substring(arg.indexOf("+")+1) != null)
+                    {
+                    arg = arg.substring(arg.indexOf("+")+1);
+                    arg = arg.trim();
+                    }
                 }
-                
-                System.out.println(fDsp + sDsp);
+                if(Pattern.matches("^\\\".+\\\"",arg))
+                {
+                    String bit = input.substring(input.indexOf("\""));    
+                    strDsp = bit.trim();
+                    
+                    //arg = arg.substring(input.indexOf("+")+1);
+                    //arg = arg.trim();
+                }
+                else
+                {
+                    System.out.println("error");
+                }
+                System.out.println(fDsp + sDsp + strDsp);
             }
+            else
+            {
+                System.out.println("error");
+            }
+            
+            
             
         }while(Pattern.matches("^end", input) == false);
         
