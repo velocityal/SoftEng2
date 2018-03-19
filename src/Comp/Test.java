@@ -359,5 +359,5 @@ public class Test {
 
 
 //***  unused patterns. might use later
-  //  if(Pattern.matches("^(display?)(.*)",input))          
+  //  if(Pattern.matches("^(display?)(.*)",input)) asd         
 
