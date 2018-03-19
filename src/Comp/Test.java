@@ -26,11 +26,21 @@ public class Test {
         String input = null;
         String strInput = null;
         int numvalue = 0;
+        int count = 1;
+        int size = 999;
+        int math = 0;
+        String comments[] = new String[size];
+        char operator = 0;
+        
+        
+        
+
         
       //  System.out.println( ("   m   ").trim());
         
         Scanner scan = new Scanner(System.in);
-        
+        String temp = "No Comments";
+        comments[0] = temp;
         
         do
         {
@@ -98,7 +108,7 @@ public class Test {
             }
                 if(Pattern.matches("^int.*",input))            
             {
-                System.out.println("has int");
+               // System.out.println("has int");
                 
                 Pattern p;
                 p = Pattern.compile("(?<=int\\s).*");
@@ -113,8 +123,8 @@ public class Test {
                 }*/
                 
                 boolean found = false;
-            while (m.find())
-            {
+                while (m.find())
+                {
  //   System.out.println("I found the text: " + m.group().toString());
                 index = m.group().charAt(0);
     
@@ -125,12 +135,12 @@ public class Test {
  //   System.out.println(chrInput[test]);
     
 
-            }
+                }
 
-            if (!found)
-            {
+                if (!found)
+                {
                 System.out.println("I didn't find the text");
-            }
+                }
 
             String bit = input.substring(input.indexOf("=")+1);    
              numvalue = Integer.parseInt( bit.trim());
@@ -140,8 +150,8 @@ public class Test {
               //  System.out.println(value);
                 
         //        found = false;
-            while (m.find())
-            {
+                while (m.find())
+                {
             //  System.out.println("I found the text: " + m.group().toString());
              // char value = m.group().toString().charAt(0);
     
@@ -150,23 +160,186 @@ public class Test {
       
     
 
-            }
-        intInput[index] = numvalue;
+                }
+                    intInput[index] = numvalue;
  
 
             }
-            if(Pattern.matches("^\\.*String\\.*",input))            
+            if(Pattern.matches("symbol table",input))            
+                {
+                //System.out.println("has String");
+                
+                for(int chars = 'a'; chars <= 'z'; chars++)
+                    {
+                    if(chrInput[chars] >= 'a')
+                        {
+                        System.out.println( (char)chars +" = " + chrInput[chars]);
+                        }           
+                    }
+                }
+            
+            if(Pattern.matches("^.*\\*.*",input))
+
             {
-                System.out.println("has String");
+                
+                comments[count] = input;
+                    
+                count++;
+
+            }            
+                
+            if(Pattern.matches("comments",input))
+
+            {
+                int line = 1;
+                if(comments[1] != null)
+                {
+                    System.out.println("Comments: ");  
+                    
+                
+                    do
+                    {
+                        
+                        System.out.println(comments[line]);
+                        line++;
+                    }while(comments[line] != null);
+                    
+                }
+                else
+                {
+                    System.out.println(comments[0]);
+                }
             }
-        }while(Pattern.matches("^(display?)(.*)", input) == false);
+
+            if(Pattern.matches("^\\d.*",input)) 
+            {
+                String arth;
+                Pattern numbers;
+                Pattern check;
+                int tempNum = 0;
+                int ans = 0;
+                System.out.println("~~~~~~~~~~~~~");
+                numbers = Pattern.compile("^[\\d*]");
+                Matcher a = numbers.matcher(input);
+                while (a.find())
+                {
+                    ans = Integer.parseInt( a.group().trim());
+                }
+                check = Pattern.compile("[\\+\\-\\*\\/]");
+                Matcher c = check.matcher(input);
+                
+                
+
+                while (c.find())
+                {
+
+                   operator = c.group().charAt(0);
+                }   
+                //String bit = input.substring(input.indexOf("+")+1);
+                //tempNum = Integer.parseInt(bit.trim());
+                String lastNum;
+                switch(operator)
+                {
+                    case'+':
+                          {
+                                lastNum = input.substring(input.indexOf("+")+1);
+                                tempNum = Integer.parseInt(lastNum.trim());
+                              
+                              System.out.println(ans+tempNum);
+                              break;
+                          }
+                    case'-':
+                          {
+                                lastNum = input.substring(input.indexOf("-")+1);
+                                tempNum = Integer.parseInt(lastNum.trim());
+                              System.out.println(ans-tempNum);
+                              break;
+                          }  
+                    case'*':
+                          {
+                              lastNum = input.substring(input.indexOf("*")+1);
+                              tempNum = Integer.parseInt(lastNum.trim());
+                              System.out.println(ans*tempNum);
+                              break;
+                          }
+                    case'/':
+                          {
+                              lastNum = input.substring(input.indexOf("/")+1);
+                              tempNum = Integer.parseInt(lastNum.trim());
+                              System.out.println(ans/tempNum);
+                              break;
+                          }
+                }
+                
+
+                    
+                   
+            
+            
+            }
+            
+            if(Pattern.matches("^(display?).*",input))
+            {
+                String arg = null;
+                String fDsp = null;
+                String sDsp = null;
+                int fNum = 0;
+                Pattern p;
+                p = Pattern.compile("(?<=display\\s)....");
+                Matcher m = p.matcher (input);
+                while (m.find())
+                {
+                    
+                   arg = m.group();
+                } 
+                
+                if(Pattern.matches("^int.*",arg))
+                {
+                    String bit = input.substring(input.indexOf("t")+1);    
+                    fNum = bit.trim().charAt(0);
+                    fDsp = Integer.toString(intInput[fNum]);
+                    arg = input.substring(input.indexOf("+")+1);
+                    arg = arg.trim();
+
+                }
+                else if(Pattern.matches("^char.*",arg))
+                {
+                    String bit = input.substring(input.indexOf("r")+1);    
+                    fNum = bit.trim().charAt(0);
+                    fDsp = Character.toString(chrInput[fNum]);
+                    arg = input.substring(input.indexOf("+")+1);
+                    arg = arg.trim();
+                }     
+                
+                if(Pattern.matches("^int.*",arg))
+                {
+                    String bit = input.substring(input.indexOf("t")+1);    
+                    fNum = bit.trim().charAt(0);
+                    sDsp = Integer.toString(intInput[fNum]);
+                    //arg = arg.substring(input.indexOf("+")+1);
+                   // arg = arg.trim();
+                }
+                else if(Pattern.matches("^char.*",arg))
+                {
+                    String bit = input.substring(input.indexOf("r")+1);    
+                    fNum = bit.trim().charAt(0);
+                    sDsp = Character.toString(chrInput[fNum]);
+                   // arg = input.substring(input.indexOf("+")+1);
+                   // arg = arg.trim();
+                }
+                
+                System.out.println(fDsp + sDsp);
+            }
+            
+        }while(Pattern.matches("^end", input) == false);
         
             String bit = input.substring(input.indexOf("y")+1);    
             value = bit.trim().charAt(0);
         
         System.out.println("test");   
     //char test = scan.next().charAt(0);
-    System.out.println("result " + chrInput[value]);
+
+            
         System.out.println("result int: " + intInput[value]);
         
         }
@@ -174,9 +347,17 @@ public class Test {
     }
 
 
-   
+   class Qoute {
+    private static Pattern pd = Pattern.compile("(\")((?:[^\"]|\"\")*)\"");
+    private static Pattern ps = Pattern.compile("(')((?:[^']|'')*)'");
+    public static Matcher match(String s) {
+        Matcher md = pd.matcher(s);
+        if (md.matches()) return md;
+        else return ps.matcher(s);
+    }
+}
 
 
-
-    
+//***  unused patterns. might use later
+  //  if(Pattern.matches("^(display?)(.*)",input))          
 

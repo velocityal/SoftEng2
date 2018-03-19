@@ -12,4 +12,12 @@ package Comp;
  */
 public class Symbol {
     
+    public static void main(String[] args) {
+        for(char y = 'c'; y <= 'h'; y++){
+    System.out.print(y);
+}
+System.out.println();
+    }
+   
+    
 }
