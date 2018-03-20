@@ -351,7 +351,7 @@ public class Test {
                 Pattern p;
                 p = Pattern.compile("(?<=display\\s)....*");
                 Matcher m = p.matcher (input);
-                fDsp[sDsp] = "";
+                fDsp[0] = "";
                 while (m.find())
                 {
                     
