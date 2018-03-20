@@ -341,37 +341,40 @@ public class Test {
             
             }
             
-           else if(Pattern.matches("^(display?).*",input))
+           else if(Pattern.matches("^display.*",input))
             {
                 String arg = null;
-                String fDsp = "";
-                String sDsp = "";
+                String fDsp[] = null;
+                int sDsp = 0;
                 String strDsp = "";
                 int fNum = 0;
                 Pattern p;
                 p = Pattern.compile("(?<=display\\s)....*");
                 Matcher m = p.matcher (input);
+                fDsp[sDsp] = "";
                 while (m.find())
                 {
                     
                    arg = m.group();
                 } 
+
                 
-                if(Pattern.matches("^int.*",arg))
+                do{
+                if(Pattern.matches("^testint.*",arg))
                 {
-                    String bit = input.substring(input.indexOf("t")+1);    
+                    String bit = arg.substring(input.indexOf("t")+1);    
                     fNum = bit.trim().charAt(0);
-                    fDsp = Integer.toString(intInput[fNum]);
-                    arg = input.substring(input.indexOf("+")+1);
+                    //fDsp = Integer.toString(intInput[fNum]);
+                    arg = arg.substring(arg.indexOf("+")+1);
                     arg = arg.trim();
 
                 }
-                else if(Pattern.matches("^char.*",arg))
+                else if(Pattern.matches("^testchar.*",arg))
                 {
-                    String bit = input.substring(input.indexOf("r")+1);    
+                    String bit = arg.substring(input.indexOf("r")+1);    
                     fNum = bit.trim().charAt(0);
-                    fDsp = Character.toString(chrInput[fNum]);
-                    arg = input.substring(input.indexOf("+")+1);
+                    //fDsp = Character.toString(chrInput[fNum]);
+                    arg = arg.substring(arg.indexOf("+")+1);
                     arg = arg.trim();
                 }     
                 
@@ -379,7 +382,7 @@ public class Test {
                 {
                     String bit = input.substring(input.indexOf("t")+1);    
                     fNum = bit.trim().charAt(0);
-                    sDsp = Integer.toString(intInput[fNum]);
+                    fDsp[sDsp] = Integer.toString(intInput[fNum]);
                     if(arg.substring(arg.indexOf("+")+1) != null)
                     {
                     arg = arg.substring(arg.indexOf("+")+1);
@@ -390,7 +393,7 @@ public class Test {
                 {
                     String bit = input.substring(input.indexOf("r")+1);    
                     fNum = bit.trim().charAt(0);
-                    sDsp = Character.toString(chrInput[fNum]);
+                    fDsp[sDsp] = Character.toString(chrInput[fNum]);
                     if(arg.substring(arg.indexOf("+")+1) != null)
                     {
                     arg = arg.substring(arg.indexOf("+")+1);
@@ -400,17 +403,22 @@ public class Test {
                 if(Pattern.matches("^\\\".+\\\"",arg))
                 {
                     String bit = input.substring(input.indexOf("\""));    
-                    strDsp = bit.trim();
+                    fDsp[sDsp] = bit.trim();
                     
                     //arg = arg.substring(input.indexOf("+")+1);
                     //arg = arg.trim();
                 }
                 else
                 {
-                    System.out.println("error");
+                    System.out.println("Output");
+                    break;
                 }
-                System.out.println(fDsp + sDsp + strDsp);
+                sDsp++;
+                }while(arg.substring(arg.indexOf("+")+1) != null);
+                System.out.println(fDsp[0] + fDsp[1] + fDsp[2]);
+                
             }
+                
             else
             {
                 System.out.println("error");
