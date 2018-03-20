@@ -344,14 +344,15 @@ public class Test {
            else if(Pattern.matches("^display.*",input))
             {
                 String arg = null;
-                String fDsp[] = null;
+                String fDsp[] = new String[256];
                 int sDsp = 0;
                 String strDsp = "";
                 int fNum = 0;
+                boolean check = true;
                 Pattern p;
                 p = Pattern.compile("(?<=display\\s)....*");
                 Matcher m = p.matcher (input);
-                fDsp[0] = "";
+                fDsp[sDsp] = "";
                 while (m.find())
                 {
                     
@@ -360,6 +361,7 @@ public class Test {
 
                 
                 do{
+                    sDsp++;
                 if(Pattern.matches("^testint.*",arg))
                 {
                     String bit = arg.substring(input.indexOf("t")+1);    
@@ -380,43 +382,75 @@ public class Test {
                 
                 if(Pattern.matches("^int.*",arg))
                 {
-                    String bit = input.substring(input.indexOf("t")+1);    
+                    String bit = arg.substring(arg.indexOf("t")+1);    
                     fNum = bit.trim().charAt(0);
                     fDsp[sDsp] = Integer.toString(intInput[fNum]);
-                    if(arg.substring(arg.indexOf("+")+1) != null)
+                    
+                    if(Pattern.matches("^.*\\+.*", arg))
                     {
                     arg = arg.substring(arg.indexOf("+")+1);
                     arg = arg.trim();
+                    }
+                    else
+                    {
+                    
+                    check = false;
                     }
                 }
                 else if(Pattern.matches("^char.*",arg))
                 {
-                    String bit = input.substring(input.indexOf("r")+1);    
+                    String bit = arg.substring(arg.indexOf("r")+1);    
                     fNum = bit.trim().charAt(0);
                     fDsp[sDsp] = Character.toString(chrInput[fNum]);
-                    if(arg.substring(arg.indexOf("+")+1) != null)
+                    
+                    if(Pattern.matches("^.*\\+.*", arg))
                     {
                     arg = arg.substring(arg.indexOf("+")+1);
-                    arg = arg.trim();
-                    }
-                }
-                if(Pattern.matches("^\\\".+\\\"",arg))
-                {
-                    String bit = input.substring(input.indexOf("\""));    
-                    fDsp[sDsp] = bit.trim();
+                    arg = arg.trim(); 
                     
+                    }
+                            else
+                    {
+                        check = false;
+                    }                    
+                }
+                else if(Pattern.matches("^\\\".+\\\".*",arg))
+                {
+                                   
+                    p = Pattern.compile("\"(.*?)\"");
+                    m = p.matcher (arg);
+                    while(m.find())
+                    
+                    //String bit = arg.substring(arg.indexOf("\""));    
+                    fDsp[sDsp] = (m.group()).replaceAll("(\")","");
+                    if(Pattern.matches("^.*\\+.*", arg))
+                    {
+                    arg = arg.substring(arg.indexOf("+")+1);
+                    arg = arg.trim(); 
+                    
+                    }
+                            else
+                    {
+                        check = false;
+                    }                    
                     //arg = arg.substring(input.indexOf("+")+1);
                     //arg = arg.trim();
                 }
-                else
-                {
-                    System.out.println("Output");
-                    break;
-                }
-                sDsp++;
-                }while(arg.substring(arg.indexOf("+")+1) != null);
-                System.out.println(fDsp[0] + fDsp[1] + fDsp[2]);
+              //  else
+              //  {
+                 //  System.out.println("Output");
+               //     break;
+               // }
                 
+                }while(check == true);
+                for(int i = 0; i < fDsp.length; i++ )
+                {
+                    if(fDsp[i] != null)
+                    {
+                        System.out.print(fDsp[i]);
+                    }
+                }
+                System.out.println("");
             }
                 
             else
